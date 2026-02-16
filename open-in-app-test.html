@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Open in App - Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; line-height: 1.4; }
+    h1 { margin-top: 0; }
+    h2 { margin-top: 24px; }
+    code { background: #f2f2f2; padding: 2px 6px; border-radius: 4px; }
+    ul { padding-left: 20px; }
+    li { margin: 6px 0; }
+    .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-top: 16px; }
+    input, select, button { padding: 8px; margin: 4px 0; width: 100%; box-sizing: border-box; }
+    .small { color: #666; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>Open in App - Pagina Test</h1>
+  <p class="small">
+    Apri questa pagina da smartphone e clicca i link per validare il routing in app.
+    Base wrapper: <code>https://open.repubblica.it/?url=&lt;encoded&gt;</code>
+  </p>
+
+  <h2>1) Casi validi wrapper (nuovo dominio)</h2>
+  <ul>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2Fi-giochi-di-repubblica%2F">Giochi (tab giochi)</a></li>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2Faudio%2F">Podcast (tab podcast)</a></li>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F">Homepage (tab news)</a></li>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2Fpolitica%2F2026%2F02%2F05%2Fnews%2Ftest-articolo%2F">Articolo (dettaglio)</a></li>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2Feconomia%2F">Altro link (dettaglio o tab se matcha carosello)</a></li>
+  </ul>
+
+  <h2>2) Wrapper con/ senza parametro <code>os</code></h2>
+  <ul>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F&os=android">Con os=android</a></li>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F&os=ios">Con os=ios (ora ignorato lato app)</a></li>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F&os=qualcosa">Con os non valido (ora ignorato lato app)</a></li>
+  </ul>
+
+  <h2>3) Wrapper invalidi (fallback home app)</h2>
+  <ul>
+    <li><a href="https://open.repubblica.it/">Manca parametro url</a></li>
+    <li><a href="https://open.repubblica.it/?url=">Parametro url vuoto</a></li>
+    <li><a href="https://open.repubblica.it/?url=ftp%3A%2F%2Fexample.com%2Ffile">URL con schema non valido (ftp)</a></li>
+    <li><a href="https://open.repubblica.it/?url=not-a-url">URL malformato</a></li>
+  </ul>
+
+  <h2>4) Link non-wrapper (flusso normale)</h2>
+  <ul>
+    <li><a href="https://www.repubblica.it/">Homepage diretta</a></li>
+    <li><a href="https://www.repubblica.it/i-giochi-di-repubblica/">Giochi diretto</a></li>
+    <li><a href="https://www.repubblica.it/audio/">Podcast diretto</a></li>
+    <li><a href="https://www.repubblica.it/politica/2026/02/05/news/test-articolo/">Articolo diretto</a></li>
+  </ul>
+
+  <div class="box">
+    <h2>5) Generatore rapido link wrapper</h2>
+    <label for="host">Host wrapper</label>
+    <select id="host">
+      <option value="open.repubblica.it">open.repubblica.it</option>
+      <option value="www.open.repubblica.it">www.open.repubblica.it</option>
+    </select>
+
+    <label for="contentUrl">Content URL da incapsulare</label>
+    <input id="contentUrl" type="text" value="https://www.repubblica.it/" />
+
+    <label for="osParam">Parametro os (opzionale)</label>
+    <input id="osParam" type="text" placeholder="android / ios / vuoto" />
+
+    <button id="buildBtn" type="button">Genera link</button>
+    <p><a id="resultLink" href="#" target="_blank" rel="noopener noreferrer">Apri link generato</a></p>
+    <p class="small"><code id="resultText"></code></p>
+  </div>
+
+  <script>
+    (function () {
+      var buildBtn = document.getElementById("buildBtn");
+      var host = document.getElementById("host");
+      var contentUrl = document.getElementById("contentUrl");
+      var osParam = document.getElementById("osParam");
+      var resultLink = document.getElementById("resultLink");
+      var resultText = document.getElementById("resultText");
+
+      function build() {
+        var base = "https://" + host.value + "/?url=" + encodeURIComponent(contentUrl.value || "");
+        var os = (osParam.value || "").trim();
+        var finalUrl = os ? base + "&os=" + encodeURIComponent(os) : base;
+        resultLink.href = finalUrl;
+        resultText.textContent = finalUrl;
+      }
+
+      buildBtn.addEventListener("click", build);
+      build();
+    })();
+  </script>
+</body>
+</html>
