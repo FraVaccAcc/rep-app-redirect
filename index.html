@@ -30,24 +30,16 @@
     <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F">Homepage (tab news)</a></li>
     <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2Fpolitica%2F2026%2F02%2F05%2Fnews%2Ftest-articolo%2F">Articolo (dettaglio)</a></li>
     <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2Feconomia%2F">Altro link (dettaglio o tab se matcha carosello)</a></li>
+    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.google.com%2F">Link esterno</a></li>
   </ul>
 
-  <h2>2) Wrapper con/ senza parametro <code>os</code></h2>
-  <ul>
-    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F&os=android">Con os=android</a></li>
-    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F&os=ios">Con os=ios (ora ignorato lato app)</a></li>
-    <li><a href="https://open.repubblica.it/?url=https%3A%2F%2Fwww.repubblica.it%2F&os=qualcosa">Con os non valido (ora ignorato lato app)</a></li>
-  </ul>
-
-  <h2>3) Wrapper invalidi (fallback home app)</h2>
+  <h2>2) Wrapper invalidi (fallback home app)</h2>
   <ul>
     <li><a href="https://open.repubblica.it/">Manca parametro url</a></li>
     <li><a href="https://open.repubblica.it/?url=">Parametro url vuoto</a></li>
-    <li><a href="https://open.repubblica.it/?url=ftp%3A%2F%2Fexample.com%2Ffile">URL con schema non valido (ftp)</a></li>
-    <li><a href="https://open.repubblica.it/?url=not-a-url">URL malformato</a></li>
   </ul>
 
-  <h2>4) Link non-wrapper (flusso normale)</h2>
+  <h2>3) Link non-wrapper (flusso normale)</h2>
   <ul>
     <li><a href="https://www.repubblica.it/">Homepage diretta</a></li>
     <li><a href="https://www.repubblica.it/i-giochi-di-repubblica/">Giochi diretto</a></li>
@@ -56,7 +48,7 @@
   </ul>
 
   <div class="box">
-    <h2>5) Generatore rapido link wrapper</h2>
+    <h2>4) Generatore rapido link wrapper</h2>
     <label for="host">Host wrapper</label>
     <select id="host">
       <option value="open.repubblica.it">open.repubblica.it</option>
